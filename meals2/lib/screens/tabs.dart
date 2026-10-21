@@ -5,6 +5,7 @@ import 'package:meals2/screens/categories.dart';
 import 'package:meals2/screens/filters.dart';
 import 'package:meals2/screens/meals.dart';
 import 'package:meals2/widgets/main_drawer.dart';
+import 'package:meals2/screens/about.dart';
 
 const kInitialFilters = {
   Filter.glutenFree: false,
@@ -69,6 +70,13 @@ class _TabsScreenState extends State<TabsScreen> {
       setState(() {
         _selectedFilters = result ?? kInitialFilters;
       });
+    } else if (identifier == 'about') {
+      // ADDED ROUTING FOR ABOUT SCREEN
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => const AboutScreen(),
+        ),
+      );
     }
   }
 
