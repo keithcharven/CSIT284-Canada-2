@@ -3,10 +3,12 @@ import 'package:meals2/models/meal.dart';
 import 'package:meals2/widgets/meal_item.dart';
 import 'package:meals2/screens/meal_details.dart'; 
 
-class MealsScreen extends StatelessWidget {
-  const MealsScreen({super.key, required this.title, required this.meals});
 
-  final String title;
+class MealsScreen extends StatelessWidget {
+  // Make title nullable (String?) and remove 'required'
+  const MealsScreen({super.key, this.title, required this.meals});
+
+  final String? title; 
   final List<Meal> meals;
 
   void selectMeal(BuildContext context, Meal meal) {
@@ -25,7 +27,7 @@ class MealsScreen extends StatelessWidget {
       itemCount: meals.length,
       itemBuilder: (ctx, index) => MealItem(
         meal: meals[index],
-        onSelectMeal: (context, meal) { 
+        onSelectMeal: (context, meal) {
           selectMeal(context, meal);
         },
       ) 
@@ -42,7 +44,7 @@ class MealsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16,),
           Text(
-            'Please select another category',
+            'Try selecting a different category!',
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               color: Theme.of(context).colorScheme.onSurface
             )
@@ -51,9 +53,12 @@ class MealsScreen extends StatelessWidget {
       );
     }
     
+    if (title == null) {
+      return content;
+    }
+    
     return Scaffold(
-      appBar: AppBar(title: Text(title),
-      ),
+      appBar: AppBar(title: Text(title!)),
       body: content,
     );
   }
